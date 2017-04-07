@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="aplus-terminal" content="1"/>
+    <meta name="apple-mobile-web-app-title" content=""/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, address=no">
+
+</head>
+
+<body>
+
+
+
+<div style="width: 100%;margin-bottom: 5px">
+    <div style="float: left;margin-right: 10px" onclick="changeVideoSrc('2');"><input type="button"  value="直播" style="width: 50px;"/></div>
+    <div ><input type="button" value="点播" style="width: 50px;" onclick="changeVideoSrc('1');"/></div>
+    <div ><input type="button" value="推流" style="width: 110px;" onclick="pushLive();"/></div>
+</div>
+
+<video id="video" style="width:100%;background: black" autoplay="true" controls="controls">
+    <source id="source" src="live.m3u8" type='application/x-mpegURL'>
+</video>
+
+
+
+<script >
+    function changeVideoSrc(type){
+        if(type==1){
+            document.getElementById("source").src= "index-vod.m3u8";
+        }else{
+            document.getElementById("source").src= "live.m3u8";
+        }
+        document.getElementById("video").load();
+    }
+    function pushLive(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '../pushstream');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log("推流成功")
+            }else {
+                console.log("推流请求失败")
+            }
+        };
+        xhr.send();
+    }
+</script>
+</body>
+</html>
