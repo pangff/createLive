@@ -32,7 +32,7 @@ server.get(/\/media\/?.*/, restify.serveStatic({
 server.get(/\/pushstream\/?.*/, function(req, res, next) {
     console.log("");
     res.send("ok");
-    //startLive();
+    startLive();
 });
 //
 //server.on('after', restify.auditLogger({
