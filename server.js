@@ -13,6 +13,7 @@ const process = require('child_process');
 function startLive(){
     process.exec(__dirname+'/media/live.sh',
         function (error, stdout, stderr) {
+            console.log(error)
             if (error !== null) {
                 console.log('exec error: ' + error);
             }
